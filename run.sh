@@ -17,7 +17,22 @@ case "$1" in
         python3 generator/generate.py local_data
         echo "Локальные данные созданны"
         ;;
+    "structure")
+        echo "Дерево решения"
+        find . -not -path './.git/*'
+        ;;
+    "clear_data")
+        rm -f data/*.csv data/*.html
+        echo "Все файлы удалены"
+        ;;
+    "inside_generator")
+        docker run --rm -v "$(pwd)/data:/data" generator ls -la /data
+        ;;
+    "inside_reporter")
+        docker run --rm -v "$(pwd)/data:/data" reporter ls -la /data
+        ;;
     *)
         echo "Неизвестная команда"
         ;;
 esac
+
